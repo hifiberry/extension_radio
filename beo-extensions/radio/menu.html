@@ -1,0 +1,50 @@
+<div class="menu-screen source" id="radio" data-icon="radio.svg" data-menu-title="Radio">
+    <header>
+        <div class="back-button master" id="return-to-menu"></div>
+        <h1>Radio</h1>
+    </header>
+    <div class="scroll-area">
+        <div class="menu-content">
+            <div class="search-container">
+                <input id="queryString" value="" type="search" placeholder="Search radio stations...">
+            </div>
+            <div>
+
+                <div class="menu-item toggle on" id="radio_browser" onclick="radio.selectRadioBrowser()">
+                    <div class="menu-label">RadioBrowser</div>
+                    <div class="menu-toggle"></div>
+                </div>
+                <div class="menu-item toggle" id="radio_tunein" onclick="radio.selectTuneIn()">
+                    <div class="menu-label">TuneIn</div>
+                    <div class="menu-toggle"></div>
+                </div>
+
+
+            </div>
+            <div id="radio-favourites" class="hidden">
+                <h2>Favourites</h2>
+                <div id="radio-favourite-items" class="collection"></div>
+            </div>
+            <p class="experiment">This is an experimental feature.</p>
+        </div>
+    </div>
+</div>
+
+<div class="menu-screen" id="radio-l2" data-parent-extension="radio" data-menu-title="">
+    <header>
+        <div class="back-button master" id="return-to-radio-list"></div>
+        <h1> </h1>
+    </header>
+    <div class="scroll-area">
+        <div class="menu-content">
+            <div class="no-results">
+                <h3>Sorry, no results.</h3>
+            </div>
+            <div class="radio-group-l2"></div>
+            <div id="search-results" class="collection hidden margin-top"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8" src="€/radio-client.js"></script>
+

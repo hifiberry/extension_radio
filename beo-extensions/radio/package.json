@@ -1,0 +1,26 @@
+{
+  "name": "@beocreate/radio",
+  "version": "0.5.0",
+  "description": "Control for Online Radio Streaming sources in BeoCreate systems",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bang-olufsen/create.git"
+  },
+  "keywords": [
+    "beocreate",
+    "radio"
+  ],
+  "author": "Bang & Olufsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bang-olufsen/create/issues"
+  },
+  "homepage": "https://github.com/bang-olufsen/create#readme",
+  "dependencies": {
+    "node-tunein-radio": "^0.3.4"
+  }
+}
