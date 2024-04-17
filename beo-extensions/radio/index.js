@@ -70,12 +70,14 @@ function fetchRadioBrowser(url) {
 	return fetch(url)
 		.then(response => response.json())
 		.then(data => {
+			console.log(data)
 			// Format the stations data or handle it as required by the UI
 			let transformedStations = data.map(station => {
 				return {
 					text: station.name,
 					URL: station.url,
-					image: station.favicon
+					image: station.favicon,
+					guide_id: station.stationuuid
 				};
 			});
 
@@ -212,33 +214,37 @@ beo.bus.on('radio', function(event) {
 
 			break;
 		case "add-to-favourite":
-			if (!settings.favourites[event.content.stationId]) {
-				settings.favourites[event.content.stationId] = {
-					title: found_stations[event.content.stationId].text,
-					img: found_stations[event.content.stationId].image,
-					url: found_stations[event.content.stationId].URL
-				}
-				isFavourite = true;
+			const { stationId } = event.content;
+			const stationDetails = found_stations[stationId];
+
+			// Fallback to existing details if event content doesn't provide new data
+			const title = event.content.name || stationDetails?.text;
+			const img = event.content.image || stationDetails?.image;
+			const url = event.content.url || stationDetails?.URL;
+
+			if (!settings.favourites[stationId]) {
+				settings.favourites[stationId] = { title, img, url };
+				event.content.isFavourite = true; // Mark as favourite
 			} else {
-				delete settings.favourites[event.content.stationId]
-				isFavourite = false;
+				delete settings.favourites[stationId];
+				event.content.isFavourite = false; // Remove from favourites
 			}
 
+			// Notify the UI of the update
 			beo.sendToUI("radio", {
-				header: "stationFavourited", 
-				content: { 
-					guide_id: event.content.stationId, 
-					isFavourite: isFavourite 
+				header: "stationFavourited",
+				content: {
+					guide_id: stationId,
+					isFavourite: event.content.isFavourite
 				}
 			});
 			beo.sendToUI("radio", {
-				header: "homeContent", 
+				header: "homeContent",
 				content: {
-					favourites: settings.favourites 
+					favourites: settings.favourites
 				}
 			});
 			beo.saveSettings("radio", settings);
-
 			break;
 	}
 });

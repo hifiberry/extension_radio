@@ -136,17 +136,22 @@ var radio = (function () {
 			icon: itemIcon,
 			iconSize: "small",
 			onclick: "radio.playRadio('" + item.URL + "', '" + item.text + "');",
-			onclickSecondary: "radio.addToFavorite('" + item.guide_id + "')",
+			onclickSecondary: `radio.addToFavorite('${item.guide_id}', '${item.URL}', '${item.text}', '${item.icon}')`,
 			secondarySymbol: secondarySymbol,
 			data: { "data-guide-id": item.guide_id }
 		};
 		$("#search-results").append(beo.createCollectionItem(itemOptions));
 	}
 
-	function addToFavorite(stationId) {
-		beo.sendToProduct("radio", { 
+	function addToFavorite(stationId, url, name, icon) {
+		beo.sendToProduct("radio", {
 			header: "add-to-favourite",
-			content: { stationId: stationId }
+			content: {
+				stationId: stationId,
+				url: url,
+				name: name,
+				icon: icon
+			}
 		});
 	}
 
