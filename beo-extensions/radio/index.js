@@ -182,7 +182,7 @@ beo.bus.on('radio', function(event) {
 
 		case "radioBrowserSearch":
 			var queryName = event.content.replace(/ /g, '+');
-			var path = `/json/stations/byname/${queryName}`;
+			var path = `/json/stations/byname/${queryName}?hideborken=true`;
 
 			fetchRadioBrowserWithRetry(path)
 				.catch(error => {
